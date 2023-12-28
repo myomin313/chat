@@ -22,6 +22,12 @@ use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Cake\View\Exception\MissingTemplateException;
 
+// start
+// require 'vendor/autoload.php';
+
+use DonatelloZa\RakePlus\RakePlus;
+//end
+
 /**
  * Static content controller
  *
@@ -78,10 +84,32 @@ class PagesController extends AppController
     }
     public function chatroom(){
       $messages = $this->request->getData('text');
-     $select = $this->fetchTable('chatbots')->find()
-             ->select(['id', 'response'])
-             ->where(['messages LIKE' => "%$messages%"])
-             ->first(); 
+
+      $phrases = RakePlus::create($messages)->get();
+
+     
+
+      //start new style
+
+      //end new style 
+
+        //    $this->loadModel('Chatbot');
+
+            $conditions = [];
+            foreach ($phrases as $keyword) {
+                $conditions['OR'][] = ['chatbots.messages LIKE' => "%$keyword%"];
+            }
+            
+            $select = $this->fetchTable('chatbots')->find('all', [
+                'conditions' => $conditions,
+            ])->first();
+
+
+    //  $select = $this->fetchTable('chatbots')->find()
+    //          ->select(['id', 'response'])
+    //          ->where(['messages LIKE' => "%$messages%"])
+    //          ->first(); 
+
       if(!empty($select->response)) {     
            echo $select->response;
        }else{        
