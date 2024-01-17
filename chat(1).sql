@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 22, 2023 at 04:10 AM
+-- Generation Time: Jan 17, 2024 at 09:04 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.1.13
 
@@ -30,36 +30,23 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `chatbots`;
 CREATE TABLE IF NOT EXISTS `chatbots` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `messages` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `response` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `messages` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `response` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jp_response` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `my_response` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `chatbots`
 --
 
-INSERT INTO `chatbots` (`id`, `messages`, `response`, `created`, `modified`) VALUES
-(1, 'Hi/Hello/Hey There', 'How can we help you please?', '2023-12-20 04:20:45', '2023-12-20 04:20:45'),
-(2, 'What is Findix Myanmar.', 'Findix Myanmar was built in 2017 in myanmar.', '2023-12-21 07:36:00', '2023-12-21 07:36:00'),
-(3, 'What kind  of services in Findix Myanmar.', 'Findix Myanmar serve \r\n1.Stock System\r\n2.Time Card and Payroll System', '2023-12-21 07:39:31', '2023-12-21 07:39:31');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `chathistory`
---
-
-DROP TABLE IF EXISTS `chathistory`;
-CREATE TABLE IF NOT EXISTS `chathistory` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `question` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `answer` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+INSERT INTO `chatbots` (`id`, `messages`, `response`, `jp_response`, `my_response`, `created`, `modified`) VALUES
+(1, 'Hello/Hi/Hi there', 'How can i help you?', 'どんな御用でしょうか？', 'ကျွန်တော်ဘယ်လိုကူညီရမလဲ?', '2023-12-22 06:51:33', '2023-12-22 06:51:33'),
+(2, 'What are Services of Findix Myanmar', 'Findix Myanmar Serve 1.Time Card System  2.Stock Management 3.Custom System', 'Findixミャンマーサーブ 1.タイムカードシステム 2.在庫管理 3.カスタムシステム', 'စနစ် 2.Stock Management 3.Custom စနစ်', '2023-12-22 06:54:03', '2023-12-22 06:54:03'),
+(3, 'About Findix Myanmar', 'Findix Myanmar was founded in 2017 in myanmar.', 'Findix ミャンマーは 2017 年にミャンマーで設立されました。', 'Findix Myanmar ကို မြန်မာနိုင်ငံတွင် 2017 ခုနှစ်တွင် စတင်တည်ထောင်ခဲ့ပါသည်။', '2023-12-22 06:55:53', '2023-12-22 06:55:53');
 
 -- --------------------------------------------------------
 
@@ -82,7 +69,8 @@ CREATE TABLE IF NOT EXISTS `phinxlog` (
 --
 
 INSERT INTO `phinxlog` (`version`, `migration_name`, `start_time`, `end_time`, `breakpoint`) VALUES
-(20231222030210, 'Users', '2023-12-21 20:46:28', '2023-12-21 20:46:28', 0);
+(20231222030210, 'Users', '2023-12-21 20:46:28', '2023-12-21 20:46:28', 0),
+(20231222063628, 'Chatbots', '2023-12-22 00:19:35', '2023-12-22 00:19:35', 0);
 
 -- --------------------------------------------------------
 
@@ -99,14 +87,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `created`, `modified`) VALUES
-(1, 'Myo Min', 'myomin313@gmail.com', '11111111', '2023-12-22 03:24:52', '2023-12-22 03:24:52');
+(2, 'Myo Min', 'myomin313@gmail.com', '$2y$10$Wol72qTKEHdkH87BfcoOM.g4/r.Oa6e.fVGJ0vGDu8UI3YvcBy5n.', '2023-12-22 04:15:30', '2023-12-22 04:15:30'),
+(3, 'myomin551000', 'myomin551000@gmail.com', '$2y$10$o4cElTIdPedu4lgrP.jwOuNKKzozPuVnKpoXYTEx6P8/o1Y8mUE56', '2023-12-22 07:02:27', '2023-12-22 07:02:27');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

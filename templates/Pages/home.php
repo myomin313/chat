@@ -148,7 +148,7 @@ html,body{
     margin-left: 10px;
 }
 .form .inbox .msg-header p{
-    color: #fff;
+    /* color: #fff; */
     background: #007bff;
     border-radius: 10px;
     padding: 8px 10px;

@@ -22,10 +22,23 @@ use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Cake\View\Exception\MissingTemplateException;
 
+use Cake\ORM\Behavior\TranslateBehavior;
+// use Landrok\LanguageDetector;
+// require_once 'vendor/autoload.php';
+
 // start
 // require 'vendor/autoload.php';
 
 use DonatelloZa\RakePlus\RakePlus;
+use \DetectLanguage\DetectLanguage;
+use \Statickidz\GoogleTranslate;
+
+use Landrok;
+
+// use LanguageDetector;
+use \LanguageDetector\LanguageDetector;
+
+//require_once 'vendor/autoload.php';
 //end
 
 /**
@@ -82,19 +95,39 @@ class PagesController extends AppController
             throw new NotFoundException();
         }
     }
+  
+    // start for calculator
     public function chatroom(){
-      $messages = $this->request->getData('text');
+        
+        $messages = $this->request->getData('text');
+        DetectLanguage::setApiKey("5ecc9f68a0e7183ac7cafdee1ac91ee2");
+        $language = DetectLanguage::simpleDetect($messages);
 
-      $phrases = RakePlus::create($messages)->get();
+          if(  $language == 'en'){
+            $phrases = RakePlus::create($messages)->get();
+            $conditions = [];
+            foreach ($phrases as $keyword) {
+                $conditions['OR'][] = ['chatbots.messages LIKE' => "%$keyword%"];
+            }            
+            $select = $this->fetchTable('chatbots')->find('all', [
+                'conditions' => $conditions,
+            ])->first();
 
-     
+            if(!empty($select->response)) {     
+                echo $select->response;
+            }else{        
+              echo "Sorry, I can't understand.";
+            }
 
-      //start new style
-
-      //end new style 
-
-        //    $this->loadModel('Chatbot');
-
+          }elseif( $language == 'my' ){
+            // start translation
+            $source = 'my';
+            $target = 'en';
+            $text = $messages;
+            $trans = new GoogleTranslate();
+            $result = $trans->translate($source, $target, $text);
+            $phrases = RakePlus::create($result)->get();
+            // end translation
             $conditions = [];
             foreach ($phrases as $keyword) {
                 $conditions['OR'][] = ['chatbots.messages LIKE' => "%$keyword%"];
@@ -104,18 +137,42 @@ class PagesController extends AppController
                 'conditions' => $conditions,
             ])->first();
 
+            if(!empty($select->my_response)) {     
+                echo $select->my_response;
+            }else{        
+              echo "တောင်းပန်ပါတယ် မင်းကို ငါနားမလည်ဘူး။";
+            }
 
-    //  $select = $this->fetchTable('chatbots')->find()
-    //          ->select(['id', 'response'])
-    //          ->where(['messages LIKE' => "%$messages%"])
-    //          ->first(); 
+          }else{
+            // start translation
+            $source = 'ja';
+            $target = 'en';
+            $text = $messages;
+            $trans = new GoogleTranslate();
+            $result = $trans->translate($source, $target, $text);           
+            $phrases = RakePlus::create($result)->get();       
+            // end translation              
+            $conditions = [];
+            foreach ($phrases as $keyword) {
+                $conditions['OR'][] = ['chatbots.messages LIKE' => "%$keyword%"];
+            }
+            
+            $select = $this->fetchTable('chatbots')->find('all', [
+                'conditions' => $conditions,
+            ])->first();
 
-      if(!empty($select->response)) {     
-           echo $select->response;
-       }else{        
-         echo "Sorry, I can't understand you.";
-       }
+            if(!empty($select->jp_response)) {     
+                echo $select->jp_response;
+            }else{        
+              echo "申し訳ありませんが、あなたの言うことが理解できません";
+            }
+
+          }           
+
+     
     }
+
+    //end for calculator
     public function beforeFilter(\Cake\Event\EventInterface $event)
    {
      parent::beforeFilter($event);
