@@ -25,6 +25,16 @@ class Chatbots extends AbstractMigration
             'limit' => 255,
             'null' => false,
         ]);
+        $table->addColumn('jp_response', 'text', [
+            'default' => null,
+            'limit' => 255,
+            'null' => false,
+        ]);
+        $table->addColumn('my_response', 'text', [
+            'default' => null,
+            'limit' => 255,
+            'null' => false,
+        ]);
         $table->addColumn('created', 'datetime', [
             'default' => null,
             'null' => false,

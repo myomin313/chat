@@ -19,6 +19,8 @@
                 <?php
                     echo $this->Form->control('messages');
                     echo $this->Form->control('response');
+                    echo $this->Form->control('jp_response');
+                    echo $this->Form->control('my_response');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

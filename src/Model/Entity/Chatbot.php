@@ -28,6 +28,8 @@ class Chatbot extends Entity
     protected $_accessible = [
         'messages' => true,
         'response' => true,
+        'jp_response' => true,
+        'my_response' => true,
         'created' => true,
         'modified' => true,
     ];

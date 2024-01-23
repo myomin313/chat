@@ -38,9 +38,21 @@
                 </blockquote>
             </div>
             <div class="text">
-                <strong><?= __('Response') ?></strong>
+                <strong><?= __('My Response') ?></strong>
                 <blockquote>
                     <?= $this->Text->autoParagraph(h($chatbot->response)); ?>
+                </blockquote>
+            </div>
+            <div class="text">
+                <strong><?= __('Jp Response') ?></strong>
+                <blockquote>
+                    <?= $this->Text->autoParagraph(h($chatbot->jp_response)); ?>
+                </blockquote>
+            </div>
+            <div class="text">
+                <strong><?= __('My Response') ?></strong>
+                <blockquote>
+                    <?= $this->Text->autoParagraph(h($chatbot->my_response)); ?>
                 </blockquote>
             </div>
         </div>

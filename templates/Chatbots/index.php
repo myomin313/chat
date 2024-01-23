@@ -6,14 +6,16 @@
 ?>
 <div class="chatbots index content">
     <?= $this->Html->link(__('New Chatbot'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Chatbots') ?></h3>
+    <h3><?= __('Predefine Chat Data') ?></h3>
     <div class="table-responsive">
         <table>
             <thead>
                 <tr>
                     <th><?= $this->Paginator->sort('id') ?></th>
                     <th><?= $this->Paginator->sort('Message') ?></th>
-                    <th><?= $this->Paginator->sort('Response') ?></th>
+                    <th><?= $this->Paginator->sort('En Response') ?></th>
+                    <th><?= $this->Paginator->sort('JP Response') ?></th>
+                    <th><?= $this->Paginator->sort('My Response') ?></th>
                     <th><?= $this->Paginator->sort('created') ?></th>
                     <th><?= $this->Paginator->sort('modified') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
@@ -25,6 +27,8 @@
                     <td><?= $this->Number->format($chatbot->id) ?></td>
                     <td><?= h($chatbot->messages) ?></td>
                     <td><?= h($chatbot->response) ?></td>
+                    <td><?= h($chatbot->jp_response) ?></td>
+                    <td><?= h($chatbot->my_response) ?></td>
                     <td><?= h($chatbot->created) ?></td>
                     <td><?= h($chatbot->modified) ?></td>
                     <td class="actions">

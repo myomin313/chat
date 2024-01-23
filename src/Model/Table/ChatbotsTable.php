@@ -64,6 +64,16 @@ class ChatbotsTable extends Table
             ->requirePresence('response', 'create')
             ->notEmptyString('response');
 
+        $validator
+            ->scalar('jp_response')
+            ->requirePresence('jp_response', 'create')
+            ->notEmptyString('jp_response');
+
+            $validator
+            ->scalar('my_response')
+            ->requirePresence('my_response', 'create')
+            ->notEmptyString('my_response');
+
         return $validator;
     }
 }
