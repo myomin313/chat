@@ -114,7 +114,7 @@ html,body{
     font-size: 20px;
     font-weight: 500;
     line-height: 60px;
-    text-align: center;
+    text-align: left;
     border-bottom: 1px solid #006fe6;
     border-radius: 5px 5px 0 0;
 }
@@ -220,10 +220,31 @@ html,body{
 .typing-field .input-data button:hover{
     background: #006fef;
 }
+/*add icon design*/
+.bot-inbox .msg-header p{
+    color:white;
+}
+.openChatBtn {
+         background-color: rgb(123, 28, 179);
+         color: white;
+         padding: 16px 20px;
+         border: none;
+         font-weight: 500;
+         font-size: 18px;
+         cursor: pointer;
+         opacity: 0.8;
+         position: fixed;
+         bottom: 23px;
+         right: 28px;
+         width: 80px;
+         border-radius:180px;
+      }   
+
 </style>
 <body>
-    <div class="wrapper">
-        <div class="title">Simple Online Chatbot</div>
+     <button class="openChatBtn"><i class="fab fa-rocketchat fa-2x"></i></button>
+    <div class="wrapper openChat">
+        <div class="title">&nbsp;&nbsp;&nbsp;<i class="fas fa-robot"></i> Chatbot</div>
         <div class="form">
             <div class="bot-inbox inbox">
                 <!-- <div class="icon">
@@ -242,6 +263,12 @@ html,body{
         </div>
     </div>
     <script>
+        document.querySelector(".openChat").style.display = "none";
+      $(".openChatBtn").click( function() {
+         //$(".openChatBtn").toggleClass('min');
+           $(".openChat").toggle();
+           $("i", this).toggleClass("fab fa-rocketchat far fa-window-close");
+      });
         $(document).ready(function(){
             $("#send-btn").on("click", function(){
                 $value = $("#data").val();
@@ -257,7 +284,7 @@ html,body{
                     type: 'POST',
                     data: 'text='+$value,
                     success: function(result){
-                        $replay = '<div class="bot-inbox inbox"><div class="icon"><i class="fas fa-user"></i></div><div class="msg-header"><p>'+ result +'</p></div></div>';
+                        $replay = '<div class="bot-inbox inbox"><div class="icon"><i class="fas fa-robot"></i></div><div class="msg-header"><p>'+ result +'</p></div></div>';
                         $(".form").append($replay);
                         // when chat goes down the scroll bar automatically comes to the bottom
                         $(".form").scrollTop($(".form")[0].scrollHeight);
